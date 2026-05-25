@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>West Viewpoint News</title>
+	<link rel="stylesheet" href="main.css" />
+</head>
+
+<header class="advert">
+	<aside>
+		<img src="sportsbet.jpeg" width="50px">
+	</aside>
+</header>
+
+<body>
+	<div class="app">
+		<div class="menu-toggle">
+			<div class="hamburger">
+				<span></span>
+			</div>
+		</div>
+
+		<aside class="sidebar">
+			<h3>Menu</h3>
+			
+			<nav class="menu">
+				<a href="index.html" class="menu-item is-active">Home</a>
+				<a href="news.html" class="menu-item">News</a>
+			</nav>
+
+		</aside>
+
+		<main class="content">
+			<h1>
+                Dashboard
+            </h1>
+
+            
+			<nav class="main-nav">
+  	            <ul>
+                    
+					<h2>
+                        Welcome
+					</h2>
+
+					<p>
+                		Welcome to the __________ news site. On this website, you can...
+					</p>
+
+					<img src="Footy Banner.jpeg" alt="">
+				</ul>
+	    	</nav>
+			
+			
+            
+		</main>
+	</div>
+
+	<script>
+		const menu_toggle = document.querySelector('.menu-toggle');
+		const sidebar = document.querySelector('.sidebar');
+
+		menu_toggle.addEventListener('click', () => {
+			menu_toggle.classList.toggle('is-active');
+			sidebar.classList.toggle('is-active');
+		});
+	</script>
+</body>
+</html>

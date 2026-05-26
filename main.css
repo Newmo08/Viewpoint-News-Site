@@ -121,12 +121,12 @@ main .main-nav img {
 
 .sidebar .menu .menu-item:hover,
 .sidebar .menu .menu-item.is-active {
-	color: #d9e806;
-	border-right: 5px solid #d9e806;
+	color: #6e6e6e;
+	border-right: 5px solid #6e6e6e;
 }
 
 .sidebar .menu .menu-item:hover {
-	border-right: 5px solid #d9e806;
+	border-right: 5px solid #6e6e6e;
 }
 
 .content {
@@ -135,7 +135,7 @@ main .main-nav img {
 }
 
 .content h1 {
-	color: #d9e806;
+	color: #6e6e6e;
 	font-size: 2.5rem;
 	margin-bottom: 1rem;
 }

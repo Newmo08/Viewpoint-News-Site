@@ -46,8 +46,8 @@ main .top-bar {
 main .top-bar li {
 	 	list-style-type: none;
         display: inline;
-        margin-right: 10px;
-        margin-left: 10px;
+        margin-right: 50px;
+        margin-left: 50px;
         color: PapayaWhip;
 }
 

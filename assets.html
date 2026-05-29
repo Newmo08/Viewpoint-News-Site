@@ -34,58 +34,24 @@
 				</ul>
 			</nav>
 			<nav class="menu">
-				<a href="index.html" class="menu-item is-active">Store</a>
-				<a href="assets.html" class="menu-item">Assets</a>
+				<a href="index.html" class="menu-item">Store</a>
+				<a href="assets.html" class="menu-item is-active">Assets</a>
 			</nav>
 		</aside>
 
 		<main class="content">
 			<h1>
-				Build Your<br>
-				Empire
+				Assets
 			</h1>
 
-		<p class="Subtext">
-			Buy and sell businesses<br>
-			Make money<br>
-			Own the world
-		</p>
 
 		<section class="store">
-			<p>Buy an asset:</p>
-			<div class="store-group">
-				<h3>Groceries</h3>
-				<div class="equip-buttons">
-					<button data-item="deli">Deli (+1 / sec) — $20</button>
-					<button data-item="cornerStore">Corner Store (+4 / sec) — $70</button>
-					<button data-item="supermarket">Supermarket (+12 / sec) — $180</button>
-					<button data-item="hypermarket">Hypermarket (+24 / sec) — $300</button>
-				</div>
-			</div>
-			<div class="store-group">
-				<h3>Retail & Entertainment</h3>
-				<div class="equip-buttons">
-					<button data-item="shoppingCenter">Shopping Center (+5 / sec) — $100</button>
-					<button data-item="mall">Mall (+20 / sec) — $360</button>
-					<button data-item="carDealer">Car Dealer (+45 / sec) — $800</button>
-					<button data-item="entertainmentComplex">Entertainment Complex (+90 / sec) — $1,800</button>
-				</div>
-			</div>
-			<div class="store-group">
-				<h3>Apartments</h3>
-				<div class="equip-buttons">
-					<button data-item="apartmentBlock">Apartment Block (+160 / sec) — $3,200</button>
-					<button data-item="highriseComplex">High-rise Complex (+420 / sec) — $7,600</button>
-				</div>
-			</div>
-			<div class="store-group">
-				<h3>Sports Clubs</h3>
-				<div class="equip-buttons">
-					<button data-item="sportsClub">Sports Club (+1,000 / sec) — $20,000</button>
-					<button data-item="stadium">Stadium (+2,600 / sec) — $52,000</button>
-				</div>
+			<h2>Your Assets</h2>
+			<div id="asset-list">
+				<p>No assets owned yet.</p>
 			</div>
 		</section>
+
 	</main>
 	</div>
 
@@ -119,6 +85,7 @@
 		const balanceEl = document.getElementById('balance');
 		const ownedEl = document.getElementById('owned-assets');
 		const speedEl = document.getElementById('speed');
+		const assetListEl = document.getElementById('asset-list');
 		const purchaseButtons = document.querySelectorAll('[data-item]');
 
 		function saveState() {
@@ -158,10 +125,55 @@
 			});
 		}
 
+		function sellItem(itemKey) {
+			const item = items[itemKey];
+			if (!item || itemCount(itemKey) <= 0) return;
+			const sellPrice = Math.floor(item.cost * 0.5);
+			balance += sellPrice;
+			ownedAssets[itemKey] = itemCount(itemKey) - 1;
+			updateDisplay();
+		}
+
+		function renderAssets() {
+			const owned = Object.entries(ownedAssets).filter(([, count]) => count > 0);
+			if (owned.length === 0) {
+				assetListEl.innerHTML = '<p>No assets owned yet.</p>';
+				return;
+			}
+			const grouped = owned.reduce((acc, [key, count]) => {
+				const item = items[key];
+				const group = item?.group || 'Other';
+				if (!acc[group]) acc[group] = [];
+				acc[group].push({ key, item, count });
+				return acc;
+			}, {});
+			const groupHtml = Object.entries(grouped).map(([group, entries]) => {
+				const rows = entries.map(({ key, item, count }) => {
+					const sellPrice = Math.floor(item.cost * 0.5);
+					return `
+						<div class="asset-row">
+							<div class="asset-info">
+								<strong>${item.name}</strong>: ${count} × ${item.speed} / sec = ${formatNumber(item.speed * count)} / sec
+							</div>
+							<button class="sell-btn" onclick="window.sellItem('${key}')">Sell ($${sellPrice})</button>
+						</div>`;
+				}).join('');
+				return `
+					<div class="asset-group">
+						<h3>${group}</h3>
+						${rows}
+					</div>`;
+			}).join('');
+			assetListEl.innerHTML = groupHtml;
+		}
+
+		window.sellItem = sellItem;
+
 		function updateDisplay() {
 			balanceEl.textContent = '$' + formatNumber(balance);
 			ownedEl.textContent = totalAssets();
 			speedEl.textContent = formatNumber(totalSpeed());
+			renderAssets();
 			saveState();
 			updateButtonStates();
 		}
@@ -183,6 +195,8 @@
 				buyItem(button.dataset.item);
 			});
 		});
+
+		window.buyItem = buyItem;
 
 		setInterval(() => {
 			balance += totalSpeed();

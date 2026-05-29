@@ -6,22 +6,54 @@
 
 }
 
-header {
-	background-color: #333339;
-}
-
-header aside {
-	padding: 1rem;
-}
-
 body {
     background-color: #202022;
 }
 
-main p {
-	color: #FFF;
+header {
+	background-color: #333339;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+header .reset-btn {
+	background: rgba(220, 50, 50, 0.8);
+	border: 1px solid rgba(220, 70, 70, 0.6);
+	border-radius: 8px;
+	padding: 0.6rem 1.2rem;
+	color: #fff;
+	font-weight: 600;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: 0.2s ease;
+}
+
+header .reset-btn:hover {
+	background: rgba(200, 30, 30, 0.9);
+	transform: translateY(-1px);
+}
+
+header .reset-btn:active {
+	transform: translateY(0);
+}
+
+aside h2 {
 	padding-bottom: 1rem;
 }
+aside .wallet {
+	background-color: #FFF;
+	border-radius: 30px;
+	padding: 1rem;
+}
+
+.Subtext {
+	color: #FFF;
+}
+
+
+
 
 main .main-nav {
 	background-color: #FFF;
@@ -36,10 +68,11 @@ main .main-nav p {
 	padding-top: 1rem;
 	padding-left: 0.5rem;
 	padding-bottom: 1rem;
+	color: #000;
 } 
 
-main .main-nav img {
-	padding-left: 1.5rem;
+main .main-nav li {
+	display:block;
 }
 
 
@@ -106,6 +139,8 @@ main .main-nav img {
 	max-width: 300px;
 	padding: 2rem 1rem;
 	background-color: #333339;
+	position: relative;
+	z-index: 2;
 }
 
 .sidebar h3 {
@@ -146,6 +181,130 @@ main .main-nav img {
 	color: #FFF;
 	font-size: 2.5rem;
 	margin-bottom: 1rem;
+}
+
+.store {
+	margin-top: 2rem;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	border-radius: 28px;
+	padding: 1.75rem;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+	max-width: 720px;
+	color: #fff;
+}
+
+.store ul {
+	list-style: none;
+}
+
+.store p {
+	color: #f7f7ff;
+	font-size: 1rem;
+	margin-bottom: 1rem;
+}
+
+.store-group {
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 16px;
+	padding: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.store-group h3 {
+	color: #f7f7ff;
+	font-size: 1.1rem;
+	margin-bottom: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.asset-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75rem 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.asset-row:last-child {
+	border-bottom: none;
+}
+
+.asset-info {
+	flex: 1;
+	color: #f7f7ff;
+	font-size: 0.95rem;
+}
+
+.sell-btn {
+	background: rgba(255, 80, 80, 0.8);
+	border: 1px solid rgba(255, 100, 100, 0.6);
+	border-radius: 6px;
+	padding: 0.5rem 1rem;
+	color: #fff;
+	font-weight: 600;
+	font-size: 0.85rem;
+	cursor: pointer;
+	transition: 0.2s ease;
+	white-space: nowrap;
+	margin-left: 1rem;
+}
+
+.sell-btn:hover {
+	background: rgba(255, 60, 60, 0.9);
+	transform: translateY(-1px);
+}
+
+.sell-btn:active {
+	transform: translateY(0);
+}
+
+.equip-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.equip-buttons button {
+	border: none;
+	border-radius: 999px;
+	padding: 0.95rem 1.5rem;
+	background: linear-gradient(135deg, #7c2cff 0%, #00d8ff 100%);
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 0.98rem;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+	box-shadow: 0 14px 30px rgba(0, 0, 0, 0.20);
+}
+
+.equip-buttons button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+	filter: brightness(1.05);
+}
+
+.equip-buttons button:disabled {
+	cursor: not-allowed;
+	opacity: 0.35;
+	box-shadow: none;
+	filter: grayscale(0.45) brightness(0.9);
+	pointer-events: none;
+}
+
+.equip-buttons button:focus {
+	outline: 2px solid rgba(255, 255, 255, 0.85);
+	outline-offset: 3px;
+}
+
+.equip-buttons button[data-item="truck"] {
+	background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+}
+
+.equip-buttons button[data-item="factory"] {
+	background: linear-gradient(135deg, #ff6b00 0%, #ff0080 100%);
 }
 
 @media (max-width: 1024px) {

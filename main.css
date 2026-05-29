@@ -6,21 +6,29 @@
 
 }
 
-.advert {
-	background-color: #1d2687;
+header {
+	background-color: #333339;
 }
 
-.advert aside {
+header aside {
 	padding: 1rem;
 }
 
 body {
-    background-color: rgb(41, 37, 91);
+    background-color: #202022;
+}
+
+main p {
+	color: #FFF;
+	padding-bottom: 1rem;
 }
 
 main .main-nav {
 	background-color: #FFF;
 	padding: 2rem;
+	border-style: solid;
+	border-color: rgb(0, 0, 0);
+	border-radius: 30px;
 }
 
 main .main-nav p {
@@ -49,7 +57,7 @@ main .main-nav img {
 	width: 60px;
 	height: 60px;
 	border-radius: 99px;
-	background-color: #0015ff;
+	background-color: black;
 	cursor: pointer;
 }
 
@@ -97,11 +105,11 @@ main .main-nav img {
 	flex: 1 1 0;
 	max-width: 300px;
 	padding: 2rem 1rem;
-	background-color: #0015ff;
+	background-color: #333339;
 }
 
 .sidebar h3 {
-	color: #707793;
+	color: #FFF;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	margin-bottom: 0.5em;
@@ -121,12 +129,12 @@ main .main-nav img {
 
 .sidebar .menu .menu-item:hover,
 .sidebar .menu .menu-item.is-active {
-	color: #6e6e6e;
-	border-right: 5px solid #6e6e6e;
+	color: #000000;
+	border-right: 5px solid #000000;
 }
 
 .sidebar .menu .menu-item:hover {
-	border-right: 5px solid #6e6e6e;
+	border-right: 5px solid #000000;
 }
 
 .content {
@@ -135,13 +143,9 @@ main .main-nav img {
 }
 
 .content h1 {
-	color: #6e6e6e;
+	color: #FFF;
 	font-size: 2.5rem;
 	margin-bottom: 1rem;
-}
-
-.content p {
-	color: #707793;
 }
 
 @media (max-width: 1024px) {

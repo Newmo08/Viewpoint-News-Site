@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Personal</title>
+	<link rel="stylesheet" href="main.css" />
+</head>
+
+<header>
+	<button id="reset-btn" class="reset-btn">Reset Game</button>
+	<aside>
+		<img src="">
+	</aside>
+</header>
+
+<body>
+	<div class="app">
+		<div class="menu-toggle">
+			<div class="hamburger">
+				<span></span>
+			</div>
+		</div>
+
+		<aside class="sidebar">
+			<h2>Wallet</h2>
+			<nav class="wallet">
+   	            <ul>
+					<li><strong>Bank Balance</strong></li>
+					<li>Current money: <strong id="balance">$0</strong></li>
+					<li>Total assets owned: <strong id="owned-assets">0</strong></li>
+					<li>Total speed: <strong id="speed">0</strong> / sec</li>
+				</ul>
+			</nav>
+			<nav class="menu">
+				<a href="index.html" class="menu-item">Store</a>
+				<a href="assets.html" class="menu-item">Assets</a>
+				<a href="items.html" class="menu-item is-active">Items</a>
+			</nav>
+		</aside>
+
+		<main class="content">
+			<h1>
+				Luxury<br>
+				Items
+			</h1>
+
+		<p class="Subtext">
+			Spend your fortune on rare collectibles<br>
+			and high-end lifestyle pieces.
+		</p>
+
+		<section class="store">
+			<p>Purchase luxury items:</p>
+			<div class="store-group">
+				<h3>Luxury Collection</h3>
+				<div class="equip-buttons">
+					<button data-item="motorbike">Motorbike — $10,000</button>
+					<button data-item="house">House — $250,000</button>
+					<button data-item="lamborghini">Lamborghini — $2,000,000</button>
+					<button data-item="mansion">Mansion — $8,000,000</button>
+					<button data-item="monaLisa">Mona Lisa — $100,000,000</button>
+				</div>
+			</div>
+		</section>
+	</main>
+	</div>
+
+	<script>
+		const menu_toggle = document.querySelector('.menu-toggle');
+		const sidebar = document.querySelector('.sidebar');
+
+		menu_toggle.addEventListener('click', () => {
+			menu_toggle.classList.toggle('is-active');
+			sidebar.classList.toggle('is-active');
+		});
+
+		const items = {
+			motorbike: { name: 'Motorbike', cost: 10000 },
+			house: { name: 'House', cost: 250000 },
+			lamborghini: { name: 'Lamborghini', cost: 2000000 },
+			mansion: { name: 'Mansion', cost: 8000000 },
+			monaLisa: { name: 'Mona Lisa', cost: 100000000 }
+		};
+
+		let balance = Number(localStorage.getItem('balance') || 50);
+		let ownedItems = JSON.parse(localStorage.getItem('ownedItems') || '{}');
+
+		const balanceEl = document.getElementById('balance');
+		const ownedEl = document.getElementById('owned-assets');
+		const speedEl = document.getElementById('speed');
+		const purchaseButtons = document.querySelectorAll('[data-item]');
+
+		function saveState() {
+			localStorage.setItem('balance', balance);
+			localStorage.setItem('ownedItems', JSON.stringify(ownedItems));
+		}
+
+		function formatNumber(value) {
+			if (value >= 1000000) {
+				return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'm';
+			}
+			if (value >= 1000) {
+				return (value / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+			}
+			return value.toFixed(0);
+		}
+
+		function itemCount(itemKey) {
+			return ownedItems[itemKey] || 0;
+		}
+
+		function totalItems() {
+			return Object.values(ownedItems).reduce((sum, count) => sum + count, 0);
+		}
+
+		function updateButtonStates() {
+			purchaseButtons.forEach(button => {
+				const item = items[button.dataset.item];
+				button.disabled = balance < item.cost;
+			});
+		}
+
+		function updateDisplay() {
+			balanceEl.textContent = '$' + formatNumber(balance);
+			ownedEl.textContent = totalItems();
+			speedEl.textContent = '0';
+			saveState();
+			updateButtonStates();
+		}
+
+		function buyItem(itemKey) {
+			const item = items[itemKey];
+			if (!item) return;
+			if (balance < item.cost) {
+				alert('Not enough money to buy this item.');
+				return;
+			}
+			balance -= item.cost;
+			ownedItems[itemKey] = itemCount(itemKey) + 1;
+			updateDisplay();
+		}
+
+		purchaseButtons.forEach(button => {
+			button.addEventListener('click', () => {
+				buyItem(button.dataset.item);
+			});
+		});
+
+		setInterval(() => {
+			updateDisplay();
+		}, 1000);
+
+		window.addEventListener('storage', (event) => {
+			if (event.key === 'ownedItems') {
+				ownedItems = JSON.parse(event.newValue || '{}');
+				updateDisplay();
+			}
+			if (event.key === 'balance') {
+				balance = Number(event.newValue || balance);
+				updateDisplay();
+			}
+		});
+
+		updateDisplay();
+
+		function resetGame() {
+			if (confirm('Are you sure you want to reset your progress? This cannot be undone.')) {
+				balance = 50;
+				ownedItems = {};
+				updateDisplay();
+			}
+		}
+
+		document.getElementById('reset-btn').addEventListener('click', resetGame);
+	</script>	
+</body>
+</html>

@@ -9,10 +9,10 @@
 </head>
 
 <header>
+	<button id="reset-btn" class="reset-btn">Reset Game</button>
 	<aside>
 		<img src="">
 	</aside>
-	<button id="reset-btn" class="reset-btn">Reset Game</button>
 </header>
 
 <body>
@@ -36,6 +36,7 @@
 			<nav class="menu">
 				<a href="index.html" class="menu-item is-active">Store</a>
 				<a href="assets.html" class="menu-item">Assets</a>
+				<a href="items.html" class="menu-item">Items</a>
 			</nav>
 		</aside>
 
@@ -56,18 +57,18 @@
 			<div class="store-group">
 				<h3>Groceries</h3>
 				<div class="equip-buttons">
-					<button data-item="deli">Deli (+1 / sec) — $20</button>
-					<button data-item="cornerStore">Corner Store (+4 / sec) — $70</button>
-					<button data-item="supermarket">Supermarket (+12 / sec) — $180</button>
-					<button data-item="hypermarket">Hypermarket (+24 / sec) — $300</button>
+					<button data-item="deli">Deli (+1 / sec) — $50</button>
+					<button data-item="cornerStore">Corner Store (+4 / sec) — $225</button>
+					<button data-item="supermarket">Supermarket (+12 / sec) — $500</button>
+					<button data-item="hypermarket">Hypermarket (+24 / sec) — $650</button>
 				</div>
 			</div>
 			<div class="store-group">
 				<h3>Retail & Entertainment</h3>
 				<div class="equip-buttons">
-					<button data-item="shoppingCenter">Shopping Center (+5 / sec) — $100</button>
-					<button data-item="mall">Mall (+20 / sec) — $360</button>
-					<button data-item="carDealer">Car Dealer (+45 / sec) — $800</button>
+					<button data-item="shoppingCenter">Shopping Center (+30 / sec) — $825</button>
+					<button data-item="mall">Mall (+38 / sec) — $1,000</button>
+					<button data-item="carDealer">Car Dealer (+45 / sec) — $1,150</button>
 					<button data-item="entertainmentComplex">Entertainment Complex (+90 / sec) — $1,800</button>
 				</div>
 			</div>
@@ -81,8 +82,8 @@
 			<div class="store-group">
 				<h3>Sports Clubs</h3>
 				<div class="equip-buttons">
-					<button data-item="sportsClub">Sports Club (+1,000 / sec) — $20,000</button>
-					<button data-item="stadium">Stadium (+2,600 / sec) — $52,000</button>
+					<button data-item="sportsClub">Sports Club (+1,000 / sec) — $35,000</button>
+					<button data-item="stadium">Stadium (+2,600 / sec) — $70,000</button>
 				</div>
 			</div>
 		</section>
@@ -100,17 +101,18 @@
 
 		const items = {
 			deli: { name: 'Deli', speed: 1, cost: 20, group: 'Groceries' },
-			cornerStore: { name: 'Corner Store', speed: 4, cost: 70, group: 'Groceries' },
-			supermarket: { name: 'Supermarket', speed: 12, cost: 180, group: 'Groceries' },
-			hypermarket: { name: 'Hypermarket', speed: 24, cost: 300, group: 'Groceries' },
-			shoppingCenter: { name: 'Shopping Center', speed: 5, cost: 100, group: 'Retail & Entertainment' },
-			mall: { name: 'Mall', speed: 20, cost: 360, group: 'Retail & Entertainment' },
-			carDealer: { name: 'Car Dealer', speed: 45, cost: 800, group: 'Retail & Entertainment' },
+			deli: { name: 'Deli', speed: 1, cost: 50, group: 'Groceries' },
+			cornerStore: { name: 'Corner Store', speed: 4, cost: 225, group: 'Groceries' },
+			supermarket: { name: 'Supermarket', speed: 12, cost: 500, group: 'Groceries' },
+			hypermarket: { name: 'Hypermarket', speed: 24, cost: 650, group: 'Groceries' },
+			shoppingCenter: { name: 'Shopping Center', speed: 30, cost: 825, group: 'Retail & Entertainment' },
+			mall: { name: 'Mall', speed: 38, cost: 1000, group: 'Retail & Entertainment' },
+			carDealer: { name: 'Car Dealer', speed: 45, cost: 1150, group: 'Retail & Entertainment' },
 			entertainmentComplex: { name: 'Entertainment Complex', speed: 90, cost: 1800, group: 'Retail & Entertainment' },
 			apartmentBlock: { name: 'Apartment Block', speed: 160, cost: 3200, group: 'Apartments' },
-			highriseComplex: { name: 'High-rise Complex', speed: 420, cost: 7600, group: 'Apartments' },
-			sportsClub: { name: 'Sports Club', speed: 1000, cost: 20000, group: 'Sports Clubs' },
-			stadium: { name: 'Stadium', speed: 2600, cost: 52000, group: 'Sports Clubs' }
+			highriseComplex: { name: 'High-rise Complex', speed: 420, cost: 11250, group: 'Apartments' },
+			sportsClub: { name: 'Sports Club', speed: 1000, cost: 35000, group: 'Sports Clubs' },
+			stadium: { name: 'Stadium', speed: 2600, cost: 70000, group: 'Sports Clubs' }
 		};
 
 		let balance = Number(localStorage.getItem('balance') || 50);

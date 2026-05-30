@@ -36,6 +36,7 @@
 			<nav class="menu">
 				<a href="index.html" class="menu-item">Store</a>
 				<a href="assets.html" class="menu-item is-active">Assets</a>
+				<a href="items.html" class="menu-item">Items</a>
 			</nav>
 		</aside>
 
@@ -49,6 +50,13 @@
 			<h2>Your Assets</h2>
 			<div id="asset-list">
 				<p>No assets owned yet.</p>
+			</div>
+		</section>
+
+		<section class="store">
+			<h2>Your Collectibles</h2>
+			<div id="collectible-list">
+				<p>No collectibles owned yet.</p>
 			</div>
 		</section>
 
@@ -81,11 +89,13 @@
 
 		let balance = Number(localStorage.getItem('balance') || 50);
 		let ownedAssets = JSON.parse(localStorage.getItem('ownedAssets') || '{}');
+		let ownedItems = JSON.parse(localStorage.getItem('ownedItems') || '{}');
 
 		const balanceEl = document.getElementById('balance');
 		const ownedEl = document.getElementById('owned-assets');
 		const speedEl = document.getElementById('speed');
 		const assetListEl = document.getElementById('asset-list');
+		const collectibleListEl = document.getElementById('collectible-list');
 		const purchaseButtons = document.querySelectorAll('[data-item]');
 
 		function saveState() {
@@ -167,13 +177,37 @@
 			assetListEl.innerHTML = groupHtml;
 		}
 
+		const collectibles = {
+			motorbike: { name: 'Motorbike' },
+			house: { name: 'House' },
+			lamborghini: { name: 'Lamborghini' },
+			mansion: { name: 'Mansion' },
+			monaLisa: { name: 'Mona Lisa' }
+		};
+
 		window.sellItem = sellItem;
+
+		function renderCollectibles() {
+			const owned = Object.entries(ownedItems).filter(([, count]) => count > 0);
+			if (owned.length === 0) {
+				collectibleListEl.innerHTML = '<p>No collectibles owned yet.</p>';
+				return;
+			}
+			collectibleListEl.innerHTML = owned.map(([key, count]) => {
+				const item = collectibles[key];
+				return item ? `
+					<div class="asset-row">
+						<div class="asset-info"><strong>${item.name}</strong>: ${count} owned</div>
+					</div>` : '';
+			}).join('');
+		}
 
 		function updateDisplay() {
 			balanceEl.textContent = '$' + formatNumber(balance);
 			ownedEl.textContent = totalAssets();
 			speedEl.textContent = formatNumber(totalSpeed());
 			renderAssets();
+			renderCollectibles();
 			saveState();
 			updateButtonStates();
 		}
@@ -206,6 +240,10 @@
 		window.addEventListener('storage', (event) => {
 			if (event.key === 'ownedAssets') {
 				ownedAssets = JSON.parse(event.newValue || '{}');
+				updateDisplay();
+			}
+			if (event.key === 'ownedItems') {
+				ownedItems = JSON.parse(event.newValue || '{}');
 				updateDisplay();
 			}
 			if (event.key === 'balance') {
